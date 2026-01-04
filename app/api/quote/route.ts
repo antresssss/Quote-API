@@ -12,9 +12,29 @@ const quotes = [
 export async function GET() {
   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
   
-  return NextResponse.json({
-    quote: randomQuote.text,
-    author: randomQuote.author,
-    timestamp: new Date().toISOString()
+  return NextResponse.json(
+    {
+      quote: randomQuote.text,
+      author: randomQuote.author,
+      timestamp: new Date().toISOString()
+    },
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      }
+    }
+  );
+}
+
+// Handle preflight requests
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
   });
-}   
+}
