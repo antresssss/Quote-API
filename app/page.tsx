@@ -84,17 +84,50 @@ export default function Home() {
           </button>
         </div>
 
+        {/* API URL Section */}
+        <div className="bg-zinc-800/50 backdrop-blur-sm rounded-2xl border border-zinc-700/50 p-8 mb-6 shadow-xl">
+          <h3 className="text-xl font-semibold text-white mb-4">API Endpoint</h3>
+          <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-700/30 flex items-center justify-between gap-4">
+            <code 
+              id="api-url"
+              className="text-green-400 text-sm break-all flex-1"
+            >
+              https://quotejar.vercel.app/api/quote
+            </code>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText('https://quotejar.vercel.app/api/quote');
+                const btn = document.getElementById('copy-btn');
+                if (btn) {
+                  const originalText = btn.textContent;
+                  btn.textContent = 'Copied!';
+                  setTimeout(() => {
+                    if (btn) btn.textContent = originalText;
+                  }, 2000);
+                }
+              }}
+              id="copy-btn"
+              className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-white text-sm rounded-lg transition-colors whitespace-nowrap"
+            >
+              Copy URL
+            </button>
+          </div>
+          <p className="text-zinc-400 text-sm mt-4">
+            Returns a random quote with author and timestamp
+          </p>
+        </div>
+
         {/* API Documentation Section */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           <div className="bg-zinc-800/50 backdrop-blur-sm rounded-2xl border border-zinc-700/50 p-8 shadow-xl">
-            <h3 className="text-xl font-semibold text-white mb-4">Endpoint</h3>
+            <h3 className="text-xl font-semibold text-white mb-4">Method</h3>
             <div className="bg-zinc-900 rounded-lg p-4 mb-4 border border-zinc-700/30">
-              <code className="text-green-400 text-sm break-all">
-                GET /api/quote
+              <code className="text-green-400 text-sm">
+                GET
               </code>
             </div>
             <p className="text-zinc-400 text-sm">
-              Returns a random quote with author and timestamp
+              No authentication required
             </p>
           </div>
 
@@ -121,7 +154,7 @@ export default function Home() {
               <h4 className="text-lg font-medium text-white mb-3">JavaScript (Fetch)</h4>
               <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-700/30 overflow-x-auto">
                 <pre className="text-zinc-300 text-sm">
-{`fetch('/api/quote')
+{`fetch('https://quotejar.vercel.app/api/quote')
   .then(res => res.json())
   .then(data => console.log(data));`}
                 </pre>
@@ -132,7 +165,7 @@ export default function Home() {
               <h4 className="text-lg font-medium text-white mb-3">JavaScript (Async/Await)</h4>
               <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-700/30 overflow-x-auto">
                 <pre className="text-zinc-300 text-sm">
-{`const response = await fetch('/api/quote');
+{`const response = await fetch('https://quotejar.vercel.app/api/quote');
 const quote = await response.json();
 console.log(quote);`}
                 </pre>
@@ -143,7 +176,7 @@ console.log(quote);`}
               <h4 className="text-lg font-medium text-white mb-3">cURL</h4>
               <div className="bg-zinc-900 rounded-lg p-4 border border-zinc-700/30 overflow-x-auto">
                 <pre className="text-zinc-300 text-sm">
-{`curl https://your-domain.com/api/quote`}
+{`curl https://quotejar.vercel.app/api/quote`}
                 </pre>
               </div>
             </div>
